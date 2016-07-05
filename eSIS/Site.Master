@@ -11,7 +11,7 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -25,6 +25,9 @@
                 <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="bootstrap" />
                 <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="datepicker" />
+                <asp:ScriptReference Name="moment" />
+                <asp:ScriptReference Name="datetimepicker" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
                 <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
                 <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
@@ -38,6 +41,23 @@
             </Scripts>
         </asp:ScriptManager>
 
+        <script>
+            $(function () {
+                $('.modal').on('hidden.bs.modal', function () {
+                    $(this).find('input[type="text"],textarea,input[type="checkbox"],input[type="radio"],input[type="number"]').val('');
+                    $('.label-danger').hide();
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                var url = this.location.pathname;
+                var filename = url.substring(url.lastIndexOf('/') + 1);
+                $('a[href="' + filename + '"]').parent().addClass('active');
+            });
+        </script>
+
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -50,22 +70,24 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                <li><a runat="server" href="~/Login">Log in</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Page.User.Identity.Name  %> !</a></li>
-                                <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log out" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%: Page.User.Identity.Name %> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a runat="server" href="~/Account/change-password">Change Password</a></li>
+                                        <li>
+                                            <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log out" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </LoggedInTemplate>

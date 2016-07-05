@@ -34,6 +34,34 @@ namespace eSIS
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
 
+            //datepicker
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "datepicker",
+                new ScriptResourceDefinition
+                {
+                    Path = "~/Scripts/bootstrap-datepicker.min.js",
+                    DebugPath = "~/Scripts/bootstrap-datepicker.js",
+                });
+
+            //datetime-picker
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "datetimepicker",
+                new ScriptResourceDefinition
+                {
+                    Path = "~/Scripts/bootstrap-datetimepicker.min.js",
+                    DebugPath = "~/Scripts/bootstrap-datetimepicker.js",
+                });
+
+            //moment
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "moment",
+                new ScriptResourceDefinition
+                {
+                    Path = "~/Scripts/moment.min.js",
+                    DebugPath = "~/Scripts/moment.js",
+                });
+
+            //respond
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",
                 new ScriptResourceDefinition
