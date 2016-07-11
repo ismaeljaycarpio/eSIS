@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="~/" title="Home"  description="">
-        <siteMapNode url="" title=""  description="" />
-        <siteMapNode url="" title=""  description="" />
+        <siteMapNode url="~/list/inquiries" title="Inquiries"  description="" />
+        <siteMapNode url="~/Login" title="Login"  description="" />
+      <siteMapNode url="~/Account/change-password" title="Change Password" />
     </siteMapNode>
 </siteMap>
