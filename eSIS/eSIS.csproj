@@ -52,6 +52,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -219,6 +221,23 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
+    <EntityDeploy Include="InquiryModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InquiryModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="InquiryModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InquiryModel.edmx</DependentUpon>
+      <LastGenOutput>InquiryModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="InquiryModel.edmx.diagram">
+      <DependentUpon>InquiryModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="InquiryModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InquiryModel.edmx</DependentUpon>
+      <LastGenOutput>InquiryModel.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\eSIS.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -379,6 +398,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Inquiry.cs">
+      <DependentUpon>InquiryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InquiryModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InquiryModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InquiryModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InquiryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InquiryModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InquiryModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="InquiryType.cs">
+      <DependentUpon>InquiryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="list\inquiries.aspx.cs">
       <DependentUpon>inquiries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -420,6 +460,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

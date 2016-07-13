@@ -18,11 +18,18 @@
                     <div class="table table-responsive">
                         <asp:GridView ID="gvInq"
                             EmptyDataText="No Record(s) found"
+                            GridLines="None"
+                            CssClass="table"
+                            AllowPaging="true"
+                            AllowSorting="true"
                             ShowHeaderWhenEmpty="true"
                             DataKeyNames="Id"
                             AutoGenerateColumns="false"
+                            DataSourceID="InqDataSource"
                             runat="server">
                             <Columns>
+                                <asp:BoundField DataField="InquiryID" HeaderText="Inquiry ID" SortExpression="InquiryID" />
+                                <asp:BoundField DataField="Company" HeaderText="Company" SortExpression="Company" />
                             </Columns>
                             <PagerStyle CssClass="pagination-ys" />
                         </asp:GridView>
@@ -33,6 +40,7 @@
     </div>
 
     <asp:LinqDataSource ID="InqDataSource"
-        OnSelecting="InqDataSource_Selecting"
-        runat="server"></asp:LinqDataSource>
+        OnSelecting="InqDataSource_Selecting"        
+        runat="server">
+    </asp:LinqDataSource>
 </asp:Content>

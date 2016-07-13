@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbSISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Inquiry">
+          <Key>
+            <PropertyRef Name="InquiryID" />
+          </Key>
+          <Property Name="InquiryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="Company" Type="varchar(max)" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar(max)" />
+          <Property Name="CompanyDesignation" Type="varchar" MaxLength="50" />
+          <Property Name="InquiryTypeID" Type="int" Nullable="false" />
+          <Property Name="Details" Type="varchar(max)" />
+          <Property Name="ReceivedBy" Type="uniqueidentifier" />
+          <Property Name="TimeCallReceived" Type="datetime" />
+          <Property Name="TimeCallEnded" Type="datetime" />
+          <Property Name="NeedFollowUp" Type="bit" />
+          <Property Name="FollowUpDate" Type="datetime" />
+          <Property Name="PendingTask" Type="varchar(max)" />
+          <Property Name="ActionID" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="InquiryType">
+          <Key>
+            <PropertyRef Name="InquiryTypeID" />
+          </Key>
+          <Property Name="InquiryTypeID" Type="int" Nullable="false" />
+          <Property Name="InquiryTypeName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Inquiry_InquiryType">
+          <End Role="InquiryType" Type="Self.InquiryType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Inquiry" Type="Self.Inquiry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InquiryType">
+              <PropertyRef Name="InquiryTypeID" />
+            </Principal>
+            <Dependent Role="Inquiry">
+              <PropertyRef Name="InquiryTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbSISModelStoreContainer">
+          <EntitySet Name="Inquiry" EntityType="Self.Inquiry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InquiryType" EntityType="Self.InquiryType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Inquiry_InquiryType" Association="Self.FK_Inquiry_InquiryType">
+            <End Role="InquiryType" EntitySet="InquiryType" />
+            <End Role="Inquiry" EntitySet="Inquiry" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbSISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Inquiry">
+          <Key>
+            <PropertyRef Name="InquiryID" />
+          </Key>
+          <Property Name="InquiryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyDesignation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InquiryTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReceivedBy" Type="Guid" />
+          <Property Name="TimeCallReceived" Type="DateTime" Precision="3" />
+          <Property Name="TimeCallEnded" Type="DateTime" Precision="3" />
+          <Property Name="NeedFollowUp" Type="Boolean" />
+          <Property Name="FollowUpDate" Type="DateTime" Precision="3" />
+          <Property Name="PendingTask" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActionID" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="InquiryType" Relationship="Self.FK_Inquiry_InquiryType" FromRole="Inquiry" ToRole="InquiryType" />
+        </EntityType>
+        <EntityType Name="InquiryType">
+          <Key>
+            <PropertyRef Name="InquiryTypeID" />
+          </Key>
+          <Property Name="InquiryTypeID" Type="Int32" Nullable="false" />
+          <Property Name="InquiryTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Inquiries" Relationship="Self.FK_Inquiry_InquiryType" FromRole="InquiryType" ToRole="Inquiry" />
+        </EntityType>
+        <Association Name="FK_Inquiry_InquiryType">
+          <End Role="InquiryType" Type="Self.InquiryType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Inquiry" Type="Self.Inquiry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InquiryType">
+              <PropertyRef Name="InquiryTypeID" />
+            </Principal>
+            <Dependent Role="Inquiry">
+              <PropertyRef Name="InquiryTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbSISEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Inquiries" EntityType="Self.Inquiry" />
+          <EntitySet Name="InquiryTypes" EntityType="Self.InquiryType" />
+          <AssociationSet Name="FK_Inquiry_InquiryType" Association="Self.FK_Inquiry_InquiryType">
+            <End Role="InquiryType" EntitySet="InquiryTypes" />
+            <End Role="Inquiry" EntitySet="Inquiries" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbSISModelStoreContainer" CdmEntityContainer="dbSISEntities">
+          <EntitySetMapping Name="Inquiries">
+            <EntityTypeMapping TypeName="dbSISModel.Inquiry">
+              <MappingFragment StoreEntitySet="Inquiry">
+                <ScalarProperty Name="InquiryID" ColumnName="InquiryID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CompanyDesignation" ColumnName="CompanyDesignation" />
+                <ScalarProperty Name="InquiryTypeID" ColumnName="InquiryTypeID" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+                <ScalarProperty Name="TimeCallReceived" ColumnName="TimeCallReceived" />
+                <ScalarProperty Name="TimeCallEnded" ColumnName="TimeCallEnded" />
+                <ScalarProperty Name="NeedFollowUp" ColumnName="NeedFollowUp" />
+                <ScalarProperty Name="FollowUpDate" ColumnName="FollowUpDate" />
+                <ScalarProperty Name="PendingTask" ColumnName="PendingTask" />
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InquiryTypes">
+            <EntityTypeMapping TypeName="dbSISModel.InquiryType">
+              <MappingFragment StoreEntitySet="InquiryType">
+                <ScalarProperty Name="InquiryTypeID" ColumnName="InquiryTypeID" />
+                <ScalarProperty Name="InquiryTypeName" ColumnName="InquiryTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
